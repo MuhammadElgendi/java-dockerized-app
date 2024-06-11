@@ -25,7 +25,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Log in to Amazon ECR
-        run: echo ${{ secrets.AWS_ACCESS_KEY_ID }} | docker login -u AWS --password-stdin https://${{ env.ECR_REPOSITORY_URI }}
+        run: echo ${{ secrets.AWS_ACCESS_KEY_ID }} | docker login -u AWS --password-stdin ${{ env.ECR_REPOSITORY_URI }}
 
       - name: Build and push Docker image
         run: |
