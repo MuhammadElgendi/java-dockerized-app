@@ -1,0 +1,18 @@
+.ECS-CLUSTER
+|
+├── main.tf
+│   ├── ecs
+│   │   ├── ecs_cluster.tf
+│   │   ├── ecs_service.tf
+│   │   ├── ecs_task_definition.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   ├── ecr
+│   │   ├── ecr.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   └── iam_user
+│       ├── iam_user.tf
+│       ├── outputs.tf
+│       └── variables.tf
+└── variables.tf

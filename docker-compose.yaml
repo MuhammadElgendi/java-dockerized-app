@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: my-node-app
+    ports:
+      - '5000:5000'
+    environment:
+      - MONGO_URL=mongodb://mongo:27017
+    depends_on:
+      - mongo
+    networks: 
+     - network-backend
+
+  mongo:
+    image: mongo:latest
+
+    container_name: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+    networks: 
+     - network-backend
+    hostname: mongo
+
+  
+
+volumes:
+  mongo-data:
+
+networks:
+  network-backend:

@@ -1,0 +1,5 @@
+ECS-CLUSTER/.terraform
+node_modules/
+nodejs-app-demo.jpg
+ECS-CLUSTER/terraform.tfstate
+ECS-CLUSTER/terraform.tfstate.backup
