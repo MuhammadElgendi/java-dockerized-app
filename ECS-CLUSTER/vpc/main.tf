@@ -77,6 +77,18 @@ resource "aws_security_group" "ecs_sg" {
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   egress {
     from_port = 0
@@ -91,3 +103,22 @@ resource "aws_security_group" "ecs_sg" {
 }
 
 data "aws_availability_zones" "available" {}
+
+
+
+resource "aws_vpc_endpoint" "ecr_api" {
+  vpc_id       = aws_vpc.main.id
+  vpc_endpoint_type = "Interface"
+  service_name = "com.amazonaws.${var.aws_region}.ecr.api"
+  subnet_ids   = aws_subnet.private.*.id
+  security_group_ids = [aws_security_group.ecs_sg.id]
+}
+
+resource "aws_vpc_endpoint" "ecr_dkr" {
+  vpc_id       = aws_vpc.main.id
+  vpc_endpoint_type = "Interface"
+  service_name = "com.amazonaws.${var.aws_region}.ecr.dkr"
+  subnet_ids   = aws_subnet.private.*.id
+  security_group_ids = [aws_security_group.ecs_sg.id]
+}
+
