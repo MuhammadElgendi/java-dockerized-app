@@ -7,7 +7,7 @@ on:
       - Master
 
 env:
-  AWS_REGION: us-west-1
+  AWS_REGION: us-east-1
   ECR_REPOSITORY_URI: ${{ secrets.ECR_REPOSITORY_URI }}
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -25,7 +25,10 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Log in to Amazon ECR
-        run: echo ${{ secrets.AWS_ACCESS_KEY_ID }} | docker login -u AWS --password-stdin https://${{ env.ECR_REPOSITORY_URI }}
+        run: |
+          aws ecr get-login-password --region ${{ env.AWS_REGION }} | docker login --username AWS --password-stdin ${{ env.ECR_REPOSITORY_URI }}
+            
+            # echo ${{ secrets.AWS_ACCESS_KEY_ID }} | docker login -u AWS --password-stdin ${{ env.ECR_REPOSITORY_URI }}
 
       - name: Build and push Docker image
         run: |
